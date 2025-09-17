@@ -1,0 +1,22 @@
+services:
+  db:
+    container_name: nordic-cargo-db
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: bojucode
+      POSTGRES_PASSWORD: bojucode
+      PGDATA: /data/postgres
+    volumes:
+      - db-data:/data/postgres
+    ports:
+      - "5332:5432"
+    networks:
+      - db
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db-data:
