@@ -21,9 +21,7 @@ public class PersonModel {
     private String email;
 
     private  String firstName;
-
     private String middleName;
-
     private String lastName;
 
     @NotNull
@@ -44,11 +42,8 @@ public class PersonModel {
     private String phoneNumber;
 
     private  String faxNumber;
-
     private String secondaryAddress;
-
     private List<String> languages;
-
     private String vat;
 
 }
