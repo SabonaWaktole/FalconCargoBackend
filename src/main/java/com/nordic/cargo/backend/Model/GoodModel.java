@@ -55,5 +55,11 @@ public class GoodModel {
     @NotNull
     private Double volume;
 
+    @NotNull
+    private String senderEmail;
+
+    @NotNull
+    private String receiverEmail;
+
 
 }
