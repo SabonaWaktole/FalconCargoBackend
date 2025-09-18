@@ -6,14 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
 @Data
 public class GoodModel {
@@ -39,7 +38,7 @@ public class GoodModel {
     private Double length;
 
     @NotNull
-    private  Double wight;
+    private  Double weight;
 
     @NotNull
     private String nature;
@@ -49,6 +48,18 @@ public class GoodModel {
 
     @NotNull
     private Integer pieces;
+
+    @NotNull
+    private Double density;
+
+    @NotNull
+    private Double volume;
+
+    @NotNull
+    private String senderEmail;
+
+    @NotNull
+    private String receiverEmail;
 
 
 }
