@@ -2,10 +2,12 @@ package com.nordic.cargo.backend.Service;
 
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
 import com.nordic.cargo.backend.Common.Services.EmailService;
+import org.springframework.stereotype.Service;
 
 import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.goodModelToTableRows;
 import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.personModelToTableRows;
 
+@Service
 public class InfoService {
     private final EmailService emailService;
 

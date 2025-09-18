@@ -28,26 +28,27 @@ public class EmailService {
             helper.setSubject(subject);
             helper.setFrom(username);
 
-            // Build HTML body
-            String htmlBody = "<p>Dear Colleague,</p>"
-                    + "<p>Here are the shipment details:</p>"
+            String htmlBody = "<div style='font-family: Arial, sans-serif; color: #333;'>"
+                    + "<p style='font-size: 16px;'>Dear Colleague,</p>"
+                    + "<p style='font-size: 14px;'>Here are the shipment details:</p>"
 
-                    + "<h3>Shipper Information</h3>"
-                    + "<table border='1' cellpadding='5' cellspacing='0'>"
+                    + "<h3 style='color: #2E86C1;'>Shipper Information</h3>"
+                    + "<table style='border-collapse: collapse; width: 100%; margin-bottom: 15px;'>"
                     + shipper
                     + "</table>"
 
-                    + "<h3>Consignee Information</h3>"
-                    + "<table border='1' cellpadding='5' cellspacing='0'>"
+                    + "<h3 style='color: #28B463;'>Consignee Information</h3>"
+                    + "<table style='border-collapse: collapse; width: 100%; margin-bottom: 15px;'>"
                     + consignee
                     + "</table>"
 
-                    + "<h3>Good Information</h3>"
-                    + "<table border='1' cellpadding='5' cellspacing='0'>"
+                    + "<h3 style='color: #D68910;'>Good Information</h3>"
+                    + "<table style='border-collapse: collapse; width: 100%; margin-bottom: 15px;'>"
                     + good
                     + "</table>"
 
-                    + "<p>Thank you for using <b>Nordic Cargo</b>!</p>";
+                    + "<p style='font-size: 14px;'>Thank you for using <b>Nordic Cargo</b>!</p>"
+                    + "</div>";
 
             helper.setText(htmlBody, true); // true = HTML
 
@@ -56,4 +57,7 @@ public class EmailService {
             e.printStackTrace();
         }
     }
+
+
+
 }

@@ -58,21 +58,21 @@ public class UtilityFunctions {
     }
 
     public static String personModelToTableRows(PersonModel p) {
-        return "<tr><td>Email</td><td>" + p.getEmail() + "</td></tr>"
-                + "<tr><td>First Name</td><td>" + p.getFirstName() + "</td></tr>"
-                + "<tr><td>Last Name</td><td>" + p.getLastName() + "</td></tr>"
-                + "<tr><td>Address</td><td>" + p.getPrimaryAddress() + "</td></tr>"
-                + "<tr><td>City</td><td>" + p.getCity() + "</td></tr>"
-                + "<tr><td>Country</td><td>" + p.getCountry() + "</td></tr>"
-                + "<tr><td>Service Count</td><td>" + p.getServiceCount() + "</td></tr>";
+        return "<tr style='background-color:#f2f2f2;'><td style='padding:8px; font-weight:bold;'>Email</td><td style='padding:8px;'>" + p.getEmail() + "</td></tr>"
+                + "<tr><td style='padding:8px; font-weight:bold;'>First Name</td><td style='padding:8px;'>" + p.getFirstName() + "</td></tr>"
+                + "<tr style='background-color:#f2f2f2;'><td style='padding:8px; font-weight:bold;'>Last Name</td><td style='padding:8px;'>" + p.getLastName() + "</td></tr>"
+                + "<tr><td style='padding:8px; font-weight:bold;'>Address</td><td style='padding:8px;'>" + p.getPrimaryAddress() + "</td></tr>"
+                + "<tr style='background-color:#f2f2f2;'><td style='padding:8px; font-weight:bold;'>City</td><td style='padding:8px;'>" + p.getCity() + "</td></tr>"
+                + "<tr><td style='padding:8px; font-weight:bold;'>Country</td><td style='padding:8px;'>" + p.getCountry() + "</td></tr>"
+                + "<tr style='background-color:#f2f2f2;'><td style='padding:8px; font-weight:bold;'>Service Count</td><td style='padding:8px;'>" + p.getServiceCount() + "</td></tr>";
     }
 
     public static String goodModelToTableRows(GoodModel g) {
-        return "<tr><td>Name</td><td>" + g.getName() + "</td></tr>"
-                + "<tr><td>Weight</td><td>" + g.getWeight() + "</td></tr>"
-                + "<tr><td>Volume</td><td>" + g.getVolume() + "</td></tr>"
-                + "<tr><td>Pieces</td><td>" + g.getPieces() + "</td></tr>"
-                + "<tr><td>Nature</td><td>" + g.getNature() + "</td></tr>"
-                + "<tr><td>State</td><td>" + g.getState() + "</td></tr>";
+        return "<tr style='background-color:#f9f9f9;'><td style='padding:8px; font-weight:bold;'>Name</td><td style='padding:8px;'>" + g.getName() + "</td></tr>"
+                + "<tr><td style='padding:8px; font-weight:bold;'>Weight</td><td style='padding:8px;'>" + g.getWeight() + "</td></tr>"
+                + "<tr style='background-color:#f9f9f9;'><td style='padding:8px; font-weight:bold;'>Volume</td><td style='padding:8px;'>" + g.getVolume() + "</td></tr>"
+                + "<tr><td style='padding:8px; font-weight:bold;'>Pieces</td><td style='padding:8px;'>" + g.getPieces() + "</td></tr>"
+                + "<tr style='background-color:#f9f9f9;'><td style='padding:8px; font-weight:bold;'>Nature</td><td style='padding:8px;'>" + g.getNature() + "</td></tr>"
+                + "<tr><td style='padding:8px; font-weight:bold;'>State</td><td style='padding:8px;'>" + g.getState() + "</td></tr>";
     }
 }
