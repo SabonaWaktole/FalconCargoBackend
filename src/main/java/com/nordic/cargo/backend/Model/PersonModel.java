@@ -10,6 +10,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
 @Data
 public class PersonModel {
@@ -41,9 +43,11 @@ public class PersonModel {
     @NotNull
     private String phoneNumber;
 
+
+
     private  String faxNumber;
     private String secondaryAddress;
     private List<String> languages;
     private String vat;
-
+    private Integer serviceCount = 0;
 }
