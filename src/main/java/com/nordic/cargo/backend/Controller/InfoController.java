@@ -18,7 +18,7 @@ public class InfoController {
 
     @PostMapping("/send-email")
     public ResponseEntity<String> sendEmail(@RequestBody ApiResponse response) {
-        String to = "sebonawaktole@gmail.com"; // or however you store recipient email
+        String to = "sabona.waktole@astu.edu.et"; // or however you store recipient email
         String subject = "Shipment Details"; // or from request if dynamic
 
         infoService.sendEmail(to, subject, response);
