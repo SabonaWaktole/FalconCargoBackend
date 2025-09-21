@@ -48,6 +48,9 @@ public class InfoService {
                 goodTable
         );
 
+
+        personService.addNewCustomer(response.getConsignee());
+        personService.addNewCustomer(response.getShipper());
         personService.increaseServiceCount(response.getShipper().getEmail());
         personService.increaseServiceCount(response.getConsignee().getEmail());
 
