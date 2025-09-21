@@ -17,13 +17,12 @@ public class InfoController {
     private final InfoService infoService;
 
     @PostMapping("/send-email")
-    public ResponseEntity<String> sendEmail(@RequestBody ApiResponse response) {
+    public ResponseEntity<?> sendEmail(@RequestBody ApiResponse response) {
         String to = "sabona.waktole@astu.edu.et"; // or however you store recipient email
         String subject = "Shipment Details"; // or from request if dynamic
 
-        infoService.sendEmail(to, subject, response);
+        return infoService.sendEmail(to, subject, response);
 
-        return ResponseEntity.ok("Email sent successfully");
     }
 
 }
