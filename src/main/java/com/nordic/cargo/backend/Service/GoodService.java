@@ -1,10 +1,14 @@
 package com.nordic.cargo.backend.Service;
 
 import com.nordic.cargo.backend.Common.Utils.GoodState;
+import com.nordic.cargo.backend.Model.GoodModel;
 import com.nordic.cargo.backend.Repositories.GoodRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class GoodService {
     private final GoodRepository goodRepository;
 
@@ -12,11 +16,13 @@ public class GoodService {
         this.goodRepository = goodRepository;
     }
 
+
+// ====== Retrieval Functions ======//
     public ResponseEntity<?> findGoodById(Integer id) {
         return goodRepository.findById(id)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("Good with ID " + id + " not found"));
+                        .body("Good not found"));
     }
 
     public  ResponseEntity<?> findAllGoods() {
@@ -41,6 +47,17 @@ public class GoodService {
 
     public  ResponseEntity<?> findGoodByReceiverEmail(String receiverEmail) {
         return  ResponseEntity.ok(goodRepository.findByReceiverEmail(receiverEmail));
+    }
+
+    // ====== Addition and Update Functions ======//
+
+    public ResponseEntity<?> addGood(GoodModel goodModel) {
+        try {
+            goodRepository.save(goodModel);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

@@ -2,18 +2,18 @@ package com.nordic.cargo.backend.Service;
 
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
 import com.nordic.cargo.backend.Common.Services.EmailService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.goodModelToTableRows;
 import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.personModelToTableRows;
 
+@AllArgsConstructor
 @Service
 public class InfoService {
     private final EmailService emailService;
+    private final PersonService personService;
 
-    public InfoService(EmailService emailService) {
-        this.emailService = emailService;
-    }
 
     public void sendEmail(String to, String subject, ApiResponse response) {
 
@@ -21,13 +21,36 @@ public class InfoService {
         String consigneeTable = personModelToTableRows(response.getConsignee());
         String goodTable = goodModelToTableRows(response.getGood());
 
-        emailService.sendHtmlEmail(
+
+        //TODO MAKE THE EMAIL TO BE SENT TO THE SHIPPER AND CONSIGNEE ALSO
+
+        emailService.sendHtmlEmailTOColleague(
                 to,
                 "Shipment Details",
                 shipperTable,
                 consigneeTable,
                 goodTable
         );
+
+        emailService.sendHtmlEmailTOCostumer(
+                response.getShipper().getEmail(),
+                "Shipment Details",
+                shipperTable,
+                consigneeTable,
+                goodTable
+        );
+
+        emailService.sendHtmlEmailTOCostumer(
+                response.getConsignee().getEmail(),
+                "Shipment Details",
+                shipperTable,
+                consigneeTable,
+                goodTable
+        );
+
+        personService.increaseServiceCount(response.getShipper().getEmail());
+        personService.increaseServiceCount(response.getConsignee().getEmail());
+
 
     }
 
