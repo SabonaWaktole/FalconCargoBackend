@@ -3,6 +3,7 @@ package com.nordic.cargo.backend.Service;
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
 import com.nordic.cargo.backend.Common.Services.EmailService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.goodModelToTableRows;
@@ -15,44 +16,53 @@ public class InfoService {
     private final PersonService personService;
 
 
-    public void sendEmail(String to, String subject, ApiResponse response) {
+    public ResponseEntity<?> sendEmail(String to, String subject, ApiResponse response) {
 
-        String shipperTable = personModelToTableRows(response.getShipper());
-        String consigneeTable = personModelToTableRows(response.getConsignee());
-        String goodTable = goodModelToTableRows(response.getGood());
-
-
-        //TODO MAKE THE EMAIL TO BE SENT TO THE SHIPPER AND CONSIGNEE ALSO
-
-        emailService.sendHtmlEmailTOColleague(
-                to,
-                "Shipment Details",
-                shipperTable,
-                consigneeTable,
-                goodTable
-        );
-
-        emailService.sendHtmlEmailTOCostumer(
-                response.getShipper().getEmail(),
-                "Shipment Details",
-                shipperTable,
-                consigneeTable,
-                goodTable
-        );
-
-        emailService.sendHtmlEmailTOCostumer(
-                response.getConsignee().getEmail(),
-                "Shipment Details",
-                shipperTable,
-                consigneeTable,
-                goodTable
-        );
+        try {
+            String shipperTable = personModelToTableRows(response.getShipper());
+            String consigneeTable = personModelToTableRows(response.getConsignee());
+            String goodTable = goodModelToTableRows(response.getGood());
 
 
-        personService.addNewCustomer(response.getConsignee());
-        personService.addNewCustomer(response.getShipper());
-        personService.increaseServiceCount(response.getShipper().getEmail());
-        personService.increaseServiceCount(response.getConsignee().getEmail());
+            //TODO MAKE THE EMAIL TO BE SENT TO THE SHIPPER AND CONSIGNEE ALSO
+
+            emailService.sendHtmlEmailTOColleague(
+                    to,
+                    "Shipment Details",
+                    shipperTable,
+                    consigneeTable,
+                    goodTable
+            );
+
+            emailService.sendHtmlEmailTOCostumer(
+                    response.getShipper().getEmail(),
+                    "Shipment Details",
+                    shipperTable,
+                    consigneeTable,
+                    goodTable
+            );
+
+            emailService.sendHtmlEmailTOCostumer(
+                    response.getConsignee().getEmail(),
+                    "Shipment Details",
+                    shipperTable,
+                    consigneeTable,
+                    goodTable
+            );
+
+
+            personService.addNewCustomer(response.getConsignee());
+            personService.addNewCustomer(response.getShipper());
+            personService.increaseServiceCount(response.getShipper().getEmail());
+            personService.increaseServiceCount(response.getConsignee().getEmail());
+
+
+            return ResponseEntity.ok("Email sent successfully");
+
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
 
 
     }
