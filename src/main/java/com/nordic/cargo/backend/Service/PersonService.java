@@ -2,6 +2,7 @@ package com.nordic.cargo.backend.Service;
 
 import com.nordic.cargo.backend.Model.PersonModel;
 import com.nordic.cargo.backend.Repositories.PersonRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +15,12 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public boolean existsByEmail(String email) {
-        return personRepository.findByEmail(email).isPresent();
-    }
 
+    //==== Update, add delete Functions ====//
     public ResponseEntity<?> addNewCustomer(PersonModel customer){
         try {
-            personRepository.save(customer);
-            // TODO Return jwt responses here
-            return  ResponseEntity.ok().build();
+            PersonModel savedPerson = personRepository.save(customer);
+            return  ResponseEntity.ok(savedPerson);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -32,18 +30,25 @@ public class PersonService {
         return personRepository.findByEmail(email)
                 .map(person -> {
                     personRepository.delete(person);
-                    return ResponseEntity.ok().build();
+                    return ResponseEntity.ok("Person deleted successfully");
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    public boolean increaseServiceCount(String email) {
-        return personRepository.findByEmail(email).map(person -> {
-            person.setServiceCount(person.getServiceCount() + 1);
-            personRepository.save(person);
-            return true;
-        }).orElse(false);
+    public ResponseEntity<?> increaseServiceCount(String email) {
+        return personRepository.findByEmail(email)
+                .map(person -> {
+                    person.setServiceCount(person.getServiceCount() + 1);
+                    personRepository.save(person);
+                    return ResponseEntity.ok("Service count increased to " + person.getServiceCount());
+                })
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Customer not found"));
     }
+
+
+
+    //==== Retrieval Functions ====//
 
     public ResponseEntity<?> getCustomerByEmail(String email) {
         return personRepository.findByEmail(email)
