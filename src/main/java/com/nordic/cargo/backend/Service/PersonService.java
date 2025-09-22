@@ -16,15 +16,28 @@ public class PersonService {
     }
 
 
+    private boolean existsByEmail(String email) {
+        return personRepository.findByEmail(email).isPresent();
+    }
+
     //==== Update, add delete Functions ====//
-    public ResponseEntity<?> addNewCustomer(PersonModel customer){
+    public ResponseEntity<?> addNewCustomer(PersonModel customer) {
         try {
-            PersonModel savedPerson = personRepository.save(customer);
-            return  ResponseEntity.ok(savedPerson);
+            // Check if customer already exists
+            return personRepository.findByEmail(customer.getEmail())
+                    .map(ResponseEntity::ok) // Return existing
+                    .orElseGet(() -> {
+                        // Save new customer
+                        PersonModel savedPerson = personRepository.save(customer);
+                        return ResponseEntity.ok(savedPerson);
+                    });
         } catch (Exception e) {
+            // Handle unexpected errors
+//            System.out.println("exception occured her \n sabona");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
     public ResponseEntity<?> removeCustomer(String email) {
         return personRepository.findByEmail(email)
