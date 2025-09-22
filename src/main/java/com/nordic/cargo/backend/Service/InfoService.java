@@ -2,6 +2,7 @@ package com.nordic.cargo.backend.Service;
 
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
 import com.nordic.cargo.backend.Common.Services.EmailService;
+import com.nordic.cargo.backend.Model.GoodModel;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.personModel
 public class InfoService {
     private final EmailService emailService;
     private final PersonService personService;
+    private final GoodService goodService;
 
 
     public ResponseEntity<?> sendEmail(String to, String subject, ApiResponse response) {
@@ -51,8 +53,9 @@ public class InfoService {
             );
 
 
-            personService.addNewCustomer(response.getConsignee());
             personService.addNewCustomer(response.getShipper());
+            personService.addNewCustomer(response.getConsignee());
+            goodService.addGood(response.getGood());
             personService.increaseServiceCount(response.getShipper().getEmail());
             personService.increaseServiceCount(response.getConsignee().getEmail());
 
