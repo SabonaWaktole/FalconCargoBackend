@@ -1,6 +1,5 @@
 package com.nordic.cargo.backend.Common.Responses;
 
-import com.nordic.cargo.backend.Common.Utils.GoodState;
 import com.nordic.cargo.backend.Model.GoodModel;
 import com.nordic.cargo.backend.Model.PersonModel;
 import lombok.AllArgsConstructor;
