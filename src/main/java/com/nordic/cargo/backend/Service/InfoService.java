@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.goodModelToTableRows;
 import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.personModelToTableRows;
 
@@ -60,7 +63,9 @@ public class InfoService {
             personService.increaseServiceCount(response.getConsignee().getEmail());
 
 
-            return ResponseEntity.ok("Email sent successfully");
+            Map<String, String> success = new HashMap<>();
+            success.put("message", "Email sent successfully");
+            return ResponseEntity.ok(success);
 
 
         } catch (Exception e) {
