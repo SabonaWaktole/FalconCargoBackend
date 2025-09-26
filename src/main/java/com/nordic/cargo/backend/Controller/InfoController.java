@@ -5,25 +5,22 @@ import com.nordic.cargo.backend.Common.Responses.ApiResponse;
 import com.nordic.cargo.backend.Service.InfoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RequestMapping("api/v1/info")
 @RestController
+@CrossOrigin(origins = "http://localhost:5173") // allow your frontend origin
 public class InfoController {
     private final InfoService infoService;
 
     @PostMapping("/send-email")
-    public ResponseEntity<String> sendEmail(@RequestBody ApiResponse response) {
+    public ResponseEntity<?> sendEmail(@RequestBody ApiResponse response) {
         String to = "sabona.waktole@astu.edu.et"; // or however you store recipient email
         String subject = "Shipment Details"; // or from request if dynamic
 
-        infoService.sendEmail(to, subject, response);
+        return infoService.sendEmail(to, subject, response);
 
-        return ResponseEntity.ok("Email sent successfully");
     }
 
 }
