@@ -2,8 +2,8 @@ package com.nordic.cargo.backend.Common.Services;
 
 import com.nordic.cargo.backend.Common.Constants.Constants;
 import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -138,15 +138,22 @@ public class EmailService {
         }
     }
 
-    public void sendMessageToColleague(String from, String to, String subject, String messageBody) {
+    public void sendMessageToColleague(String from, String to,String name, String subject, String messageBody) {
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setFrom(from);
+            try {
+                helper.setFrom(new InternetAddress(to, name));
+            } catch (java.io.UnsupportedEncodingException e) {
+                // Fallback to default encoding if there's an encoding issue
+                helper.setFrom(to);
+            }
+            helper.setReplyTo(from); // reply goes to the sender
 
+            // HTML email
             String htmlBody = "<div style='font-family: Arial, sans-serif; background-color:#f9f9f9; padding:20px;'>"
                     + "<div style='max-width:700px; margin:auto; background:#ffffff; border-radius:8px; "
                     + "box-shadow:0 4px 10px rgba(0,0,0,0.1); overflow:hidden;'>"
@@ -160,27 +167,15 @@ public class EmailService {
                     // Body content
                     + "<div style='padding:25px; color:#333;'>"
                     + "<p style='font-size:16px;'>Dear Nordic Cargo Team,</p>"
-                    + "<p style='font-size:14px; line-height:1.6;'>I hope this message finds you well. I am reaching out regarding the following matter:</p>"
+                    + "<p style='font-size:14px; line-height:1.6;'>A customer has sent the following message:</p>"
 
                     + "<div style='background-color:#f8f9fa; border-left:4px solid orange; padding:15px; margin:15px 0;'>"
-                    + "<p style='margin:0; font-style:italic;'>[Customer's message will appear here]</p>"
+                    + "<p style='margin:0; font-style:italic;'>" + messageBody + "</p>"
                     + "</div>"
 
-                    + "<p style='font-size:14px; line-height:1.6;'>Please find the details of my inquiry below:</p>"
-
-                    + "<div style='margin:20px 0;'>"
-                    + "<h3 style='color:navy; border-bottom:2px solid orange; padding-bottom:5px;'>Contact Information</h3>"
-                    + "<table style='width:100%; border-collapse:collapse;'>"
-                    + "<tr><td style='padding:8px 0; width:120px; font-weight:bold;'>Full Name:</td><td>[Customer's Full Name]</td></tr>"
-                    + "<tr><td style='padding:8px 0; font-weight:bold;'>Email:</td><td>[Customer's Email]</td></tr>"
-                    + "<tr><td style='padding:8px 0; font-weight:bold;'>Phone:</td><td>[Customer's Phone]</td></tr>"
-                    + "<tr><td style='padding:8px 0; font-weight:bold;'>Reference #:</td><td>[If applicable]</td></tr>"
-                    + "</table>"
-                    + "</div>"
-
-                    + "<p style='font-size:14px; line-height:1.6;'>I would appreciate your prompt attention to this matter. Please let me know if you require any additional information.</p>"
-                    + "<p style='font-size:14px; line-height:1.6;'>Thank you for your assistance.</p>"
-                    + "<p style='font-size:14px; line-height:1.6;'>Best regards,<br>[Customer's Name]</p>"
+                    + "<p style='font-size:14px; line-height:1.6;'>Please reply to this message directly at: " + from + "</p>"
+                    + "<p style='font-size:14px; line-height:1.6;'>Thank you!</p>"
+                    + "<p style='font-size:14px; line-height:1.6;'>Best regards,<br>" + from + "</p>"
                     + "</div>"
 
                     // Footer

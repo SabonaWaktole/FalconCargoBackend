@@ -22,8 +22,12 @@ public class PersonModel {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @NotNull
     private  String firstName;
+
     private String middleName;
+
+    @NotNull
     private String lastName;
 
     @NotNull
@@ -32,13 +36,13 @@ public class PersonModel {
     @NotNull
     private String city;
 
+    @NotNull
     private String state;
 
     @NotNull
     private String country;
 
-    @NotNull
-    private String zipCode;
+
 
     @NotNull
     private String phoneNumber;
@@ -46,6 +50,7 @@ public class PersonModel {
 
 
     private  String faxNumber;
+    private String zipCode;
     private String secondaryAddress;
     private List<String> languages;
     private String vat;
