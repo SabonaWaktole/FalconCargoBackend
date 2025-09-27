@@ -1,9 +1,12 @@
 package com.nordic.cargo.backend.Service;
 
+import com.nordic.cargo.backend.Common.Constants.Constants;
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
 import com.nordic.cargo.backend.Common.Services.EmailService;
+import com.nordic.cargo.backend.Model.ContactUsModel;
 import com.nordic.cargo.backend.Model.GoodModel;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +24,9 @@ public class InfoService {
     private final GoodService goodService;
 
 
-    public ResponseEntity<?> sendEmail(String to, String subject, ApiResponse response) {
+
+    public ResponseEntity<?> sendEmail(ApiResponse response) {
+
 
         try {
             String shipperTable = personModelToTableRows(response.getShipper());
@@ -29,10 +34,9 @@ public class InfoService {
             String goodTable = goodModelToTableRows(response.getGood());
 
 
-            //TODO MAKE THE EMAIL TO BE SENT TO THE SHIPPER AND CONSIGNEE ALSO
 
             emailService.sendHtmlEmailTOColleague(
-                    to,
+                    Constants.username,
                     "Shipment Details",
                     shipperTable,
                     consigneeTable,
@@ -73,6 +77,24 @@ public class InfoService {
         }
 
 
+    }
+
+    public ResponseEntity<?> contactUs(ContactUsModel contactUsModel){
+        try{
+            String senderEmail = contactUsModel.getSenderEmail();
+            String senderName = contactUsModel.getSenderName();
+            String subject = contactUsModel.getSubject();
+            String senderMessage = contactUsModel.getMessage();
+
+            emailService.sendMessageToColleague(senderEmail, Constants.username, subject,senderMessage);
+
+            Map<String, String> success = new HashMap<>();
+            success.put("message", "Email sent successfully");
+            return ResponseEntity.ok(success);
+
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

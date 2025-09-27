@@ -2,6 +2,7 @@ package com.nordic.cargo.backend.Controller;
 
 
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
+import com.nordic.cargo.backend.Model.ContactUsModel;
 import com.nordic.cargo.backend.Service.InfoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,11 @@ public class InfoController {
 
     @PostMapping("/send-email")
     public ResponseEntity<?> sendEmail(@RequestBody ApiResponse response) {
-        String to = "sabona.waktole@astu.edu.et"; // or however you store recipient email
-        String subject = "Shipment Details"; // or from request if dynamic
-
-        return infoService.sendEmail(to, subject, response);
-
+        return infoService.sendEmail(response);
     }
 
+    @PostMapping("contact-us")
+    public ResponseEntity<?> contactUs(@RequestBody ContactUsModel contactUsModel){
+        return infoService.contactUs(contactUsModel);
+    }
 }
