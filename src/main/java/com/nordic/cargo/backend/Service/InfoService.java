@@ -4,9 +4,7 @@ import com.nordic.cargo.backend.Common.Constants.Constants;
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
 import com.nordic.cargo.backend.Common.Services.EmailService;
 import com.nordic.cargo.backend.Model.ContactUsModel;
-import com.nordic.cargo.backend.Model.GoodModel;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,6 @@ public class InfoService {
 
 
     public ResponseEntity<?> sendEmail(ApiResponse response) {
-
 
         try {
             String shipperTable = personModelToTableRows(response.getShipper());
@@ -82,17 +79,18 @@ public class InfoService {
     public ResponseEntity<?> contactUs(ContactUsModel contactUsModel){
         try{
             String senderEmail = contactUsModel.getSenderEmail();
-            String senderName = contactUsModel.getSenderName();
             String subject = contactUsModel.getSubject();
             String senderMessage = contactUsModel.getMessage();
+            String senderName = contactUsModel.getSenderName();
 
-            emailService.sendMessageToColleague(senderEmail, Constants.username, subject,senderMessage);
-
+            System.out.println(Constants.username);
+            emailService.sendMessageToColleague(senderEmail, Constants.username,senderName, subject,senderMessage);
             Map<String, String> success = new HashMap<>();
             success.put("message", "Email sent successfully");
             return ResponseEntity.ok(success);
 
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
