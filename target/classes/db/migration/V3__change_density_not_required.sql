@@ -1,0 +1,1 @@
+ALTER TABLE good_model ALTER COLUMN density DROP NOT NULL;

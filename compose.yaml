@@ -1,11 +1,10 @@
 services:
   db:
-    container_name: nordic-cargo-db
-    image: postgres:latest
+    image: postgres:16.4
     environment:
       POSTGRES_USER: bojucode
       POSTGRES_PASSWORD: bojucode
-      PGDATA: /data/postgres
+      POSTGRES_DB: nordic-cargo-db
     volumes:
       - db-data:/data/postgres
     ports:
