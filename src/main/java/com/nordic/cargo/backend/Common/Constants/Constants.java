@@ -12,9 +12,12 @@ public class Constants {
 
     public static String username;
 
+    /**
+     * Initializes the username field with the injected email value.
+     * This method is annotated with @PostConstruct, meaning it will be called after the bean has been initialized.
+     */
     @PostConstruct
     public void init() {
         username = email; // now it’s initialized after injection
     }
 }
-
