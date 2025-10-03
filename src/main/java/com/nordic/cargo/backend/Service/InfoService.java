@@ -2,7 +2,7 @@ package com.nordic.cargo.backend.Service;
 
 import com.nordic.cargo.backend.Common.Constants.Constants;
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
-import com.nordic.cargo.backend.Common.Services.EmailService;
+import com.nordic.cargo.backend.Common.Utils.EmailSender;
 import com.nordic.cargo.backend.Model.ContactUsModel;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.personModel
 @AllArgsConstructor
 @Service
 public class InfoService {
-    private final EmailService emailService;
+    private final EmailSender emailSender;
     private final PersonService personService;
     private final GoodService goodService;
 
@@ -32,7 +32,7 @@ public class InfoService {
 
 
 
-            emailService.sendHtmlEmailTOColleague(
+            emailSender.sendHtmlEmailTOColleague(
                     Constants.username,
                     "Shipment Details",
                     shipperTable,
@@ -40,7 +40,7 @@ public class InfoService {
                     goodTable
             );
 
-            emailService.sendHtmlEmailTOCostumer(
+            emailSender.sendHtmlEmailTOCostumer(
                     response.getShipper().getEmail(),
                     "Shipment Details",
                     shipperTable,
@@ -48,7 +48,7 @@ public class InfoService {
                     goodTable
             );
 
-            emailService.sendHtmlEmailTOCostumer(
+            emailSender.sendHtmlEmailTOCostumer(
                     response.getConsignee().getEmail(),
                     "Shipment Details",
                     shipperTable,
@@ -84,7 +84,7 @@ public class InfoService {
             String senderName = contactUsModel.getSenderName();
 
             System.out.println(Constants.username);
-            emailService.sendMessageToColleague(senderEmail, Constants.username,senderName, subject,senderMessage);
+            emailSender.sendMessageToColleague(senderEmail, Constants.username,senderName, subject,senderMessage);
             Map<String, String> success = new HashMap<>();
             success.put("message", "Email sent successfully");
             return ResponseEntity.ok(success);

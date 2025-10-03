@@ -1,4 +1,4 @@
-package com.nordic.cargo.backend.Common.Services;
+package com.nordic.cargo.backend.Common.Utils;
 
 import com.nordic.cargo.backend.Common.Constants.Constants;
 import jakarta.mail.MessagingException;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class EmailService {
+public class EmailSender {
 
 
 
     private final JavaMailSender mailSender;
 
-    public EmailService(JavaMailSender mailSender) {
+    public EmailSender(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
