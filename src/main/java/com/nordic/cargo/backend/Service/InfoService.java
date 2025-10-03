@@ -2,8 +2,9 @@ package com.nordic.cargo.backend.Service;
 
 import com.nordic.cargo.backend.Common.Constants.Constants;
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
-import com.nordic.cargo.backend.Common.Services.EmailService;
-import com.nordic.cargo.backend.Model.ContactUsModel;
+import com.nordic.cargo.backend.Common.Utils.EmailSender;
+import com.nordic.cargo.backend.Model.InfoModel;
+import com.nordic.cargo.backend.Repositories.InfoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,10 @@ import static com.nordic.cargo.backend.Common.Utils.UtilityFunctions.personModel
 @AllArgsConstructor
 @Service
 public class InfoService {
-    private final EmailService emailService;
+    private final EmailSender emailSender;
     private final PersonService personService;
     private final GoodService goodService;
+    private final InfoRepository infoRepository;
 
 
 
@@ -32,7 +34,7 @@ public class InfoService {
 
 
 
-            emailService.sendHtmlEmailTOColleague(
+            emailSender.sendHtmlEmailTOColleague(
                     Constants.username,
                     "Shipment Details",
                     shipperTable,
@@ -40,7 +42,7 @@ public class InfoService {
                     goodTable
             );
 
-            emailService.sendHtmlEmailTOCostumer(
+            emailSender.sendHtmlEmailTOCostumer(
                     response.getShipper().getEmail(),
                     "Shipment Details",
                     shipperTable,
@@ -48,7 +50,7 @@ public class InfoService {
                     goodTable
             );
 
-            emailService.sendHtmlEmailTOCostumer(
+            emailSender.sendHtmlEmailTOCostumer(
                     response.getConsignee().getEmail(),
                     "Shipment Details",
                     shipperTable,
@@ -76,17 +78,18 @@ public class InfoService {
 
     }
 
-    public ResponseEntity<?> contactUs(ContactUsModel contactUsModel){
+    public ResponseEntity<?> contactUs(InfoModel infoModel){
         try{
-            String senderEmail = contactUsModel.getSenderEmail();
-            String subject = contactUsModel.getSubject();
-            String senderMessage = contactUsModel.getMessage();
-            String senderName = contactUsModel.getSenderName();
+            String senderEmail = infoModel.getSenderEmail();
+            String subject = infoModel.getSubject();
+            String senderMessage = infoModel.getMessage();
+            String senderName = infoModel.getSenderName();
 
             System.out.println(Constants.username);
-            emailService.sendMessageToColleague(senderEmail, Constants.username,senderName, subject,senderMessage);
+            emailSender.sendMessageToColleague(senderEmail, Constants.username,senderName, subject,senderMessage);
             Map<String, String> success = new HashMap<>();
             success.put("message", "Email sent successfully");
+            infoRepository.save(infoModel); // Save information to repository
             return ResponseEntity.ok(success);
 
         }catch (Exception e){
