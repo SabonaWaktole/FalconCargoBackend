@@ -14,7 +14,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-public class ContactUsModel {
+public class InfoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
