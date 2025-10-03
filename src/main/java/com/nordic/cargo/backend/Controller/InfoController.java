@@ -2,7 +2,7 @@ package com.nordic.cargo.backend.Controller;
 
 
 import com.nordic.cargo.backend.Common.Responses.ApiResponse;
-import com.nordic.cargo.backend.Model.ContactUsModel;
+import com.nordic.cargo.backend.Model.InfoModel;
 import com.nordic.cargo.backend.Service.InfoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class InfoController {
     }
 
     @PostMapping("contact-us")
-    public ResponseEntity<?> contactUs(@RequestBody ContactUsModel contactUsModel){
-        return infoService.contactUs(contactUsModel);
+    public ResponseEntity<?> contactUs(@RequestBody InfoModel infoModel){
+        return infoService.contactUs(infoModel);
     }
 }
