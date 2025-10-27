@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nordic.cargo.backend.Model.GoodModel;
 import com.nordic.cargo.backend.Model.PersonModel;
 
-import java.util.Arrays;
 
 public class UtilityFunctions {
 
