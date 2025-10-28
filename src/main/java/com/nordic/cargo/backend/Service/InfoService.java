@@ -34,7 +34,7 @@ public class InfoService {
 
 
 
-            emailSender.sendHtmlEmailTOColleague(
+            emailSender.sendMessageToColleague(
                     Constants.username,
                     "Shipment Details",
                     shipperTable,
@@ -42,7 +42,7 @@ public class InfoService {
                     goodTable
             );
 
-            emailSender.sendHtmlEmailTOCostumer(
+            emailSender.sendHtmlEmailToCustomer(
                     response.getShipper().getEmail(),
                     "Shipment Details",
                     shipperTable,
@@ -50,7 +50,7 @@ public class InfoService {
                     goodTable
             );
 
-            emailSender.sendHtmlEmailTOCostumer(
+            emailSender.sendHtmlEmailToCustomer(
                     response.getConsignee().getEmail(),
                     "Shipment Details",
                     shipperTable,
