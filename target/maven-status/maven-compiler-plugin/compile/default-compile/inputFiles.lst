@@ -8,6 +8,7 @@
 /home/sabona/Desktop/NordicCargoBackend/src/main/java/com/nordic/cargo/backend/Common/Utils/GoodState.java
 /home/sabona/Desktop/NordicCargoBackend/src/main/java/com/nordic/cargo/backend/Common/Utils/PersonRole.java
 /home/sabona/Desktop/NordicCargoBackend/src/main/java/com/nordic/cargo/backend/Common/Utils/UtilityFunctions.java
+/home/sabona/Desktop/NordicCargoBackend/src/main/java/com/nordic/cargo/backend/Common/config/WebConfig.java
 /home/sabona/Desktop/NordicCargoBackend/src/main/java/com/nordic/cargo/backend/Controller/GoodController.java
 /home/sabona/Desktop/NordicCargoBackend/src/main/java/com/nordic/cargo/backend/Controller/InfoController.java
 /home/sabona/Desktop/NordicCargoBackend/src/main/java/com/nordic/cargo/backend/Controller/PersonController.java
