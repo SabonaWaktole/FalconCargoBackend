@@ -23,8 +23,6 @@ public class InfoService {
     private final GoodService goodService;
     private final InfoRepository infoRepository;
 
-
-
     public ResponseEntity<?> sendEmail(ApiResponse response) {
 
         try {
@@ -32,32 +30,26 @@ public class InfoService {
             String consigneeTable = personModelToTableRows(response.getConsignee());
             String goodTable = goodModelToTableRows(response.getGood());
 
-
-
             emailSender.sendMessageToColleague(
                     Constants.username,
                     "Shipment Details",
                     shipperTable,
                     consigneeTable,
-                    goodTable
-            );
+                    goodTable);
 
             emailSender.sendHtmlEmailToCustomer(
                     response.getShipper().getEmail(),
                     "Shipment Details",
                     shipperTable,
                     consigneeTable,
-                    goodTable
-            );
+                    goodTable);
 
             emailSender.sendHtmlEmailToCustomer(
                     response.getConsignee().getEmail(),
                     "Shipment Details",
                     shipperTable,
                     consigneeTable,
-                    goodTable
-            );
-
+                    goodTable);
 
             personService.addNewCustomer(response.getShipper());
             personService.addNewCustomer(response.getConsignee());
@@ -65,34 +57,34 @@ public class InfoService {
             personService.increaseServiceCount(response.getShipper().getEmail());
             personService.increaseServiceCount(response.getConsignee().getEmail());
 
-
             Map<String, String> success = new HashMap<>();
             success.put("message", "Email sent successfully");
+            System.out.println(success + "is succesful comon bro chill");
             return ResponseEntity.ok(success);
 
-
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
-
     }
 
-    public ResponseEntity<?> contactUs(InfoModel infoModel){
-        try{
+    public ResponseEntity<?> contactUs(InfoModel infoModel) {
+        try {
             String senderEmail = infoModel.getSenderEmail();
             String subject = infoModel.getSubject();
             String senderMessage = infoModel.getMessage();
             String senderName = infoModel.getSenderName();
 
             System.out.println(Constants.username);
-            emailSender.sendMessageToColleague(senderEmail, Constants.username,senderName, subject,senderMessage);
+            emailSender.sendMessageToColleague(senderEmail, Constants.username, senderName, subject, senderMessage);
             Map<String, String> success = new HashMap<>();
             success.put("message", "Email sent successfully");
             infoRepository.save(infoModel); // Save information to repository
+
             return ResponseEntity.ok(success);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
