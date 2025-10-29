@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("api/v1/info")
 @RestController
-@CrossOrigin(origins = "http://localhost:5173") // allow your frontend origin
+@CrossOrigin(origins = {"http://localhost:5173", "https://falconcargofrontend.vercel.app"})
 public class InfoController {
     private final InfoService infoService;
 
