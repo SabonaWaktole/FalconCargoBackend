@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 public class Constants {
 
     @Value("${email.user}")
-    private String email;
+    private static String email;
 
-    public static String username;
+    public static String username = email;
 
     /**
      * Initializes the username field with the injected email value.
