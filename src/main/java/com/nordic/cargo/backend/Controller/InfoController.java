@@ -20,7 +20,7 @@ public class InfoController {
         return infoService.sendEmail(response);
     }
 
-    @PostMapping("contact-us")
+    @PostMapping("contact")
     public ResponseEntity<?> contactUs(@RequestBody InfoModel infoModel){
         return infoService.contactUs(infoModel);
     }
