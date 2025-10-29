@@ -88,9 +88,11 @@ public class EmailSender {
             HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
 
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+            System.out.println("Response status code: " + response.getStatusCode());
+            System.out.println("Response body: " + response.toString());
             return response.getStatusCode().is2xxSuccessful();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Email sending failed: " + e.getMessage());
             return false;
         }
     }

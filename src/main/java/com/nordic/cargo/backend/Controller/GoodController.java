@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/goods")
-@CrossOrigin(origins = "http://localhost:5173")
+// @CrossOrigin(origins = "http://localhost:5173")
+// add local host and https://falconcargofrontend.vercel.app/about to cors origin
+@CrossOrigin(origins = {"http://localhost:5173", "https://falconcargofrontend.vercel.app"})
 public class GoodController {
     private final GoodService goodService;
 

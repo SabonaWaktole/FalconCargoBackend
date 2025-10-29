@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://falconcargofrontend.vercel.app"})
 @RequestMapping("api/v1/person")
 public class PersonController {
     private final PersonService personService;
