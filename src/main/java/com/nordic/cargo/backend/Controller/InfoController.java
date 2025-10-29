@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("api/v1/info")
 @RestController
-@CrossOrigin(origins = {"http://localhost:5173", "https://falconcargofrontend.vercel.app"})
+@CrossOrigin(origins = "https://falconcargofrontend.vercel.app") // allow your frontend origin
 public class InfoController {
     private final InfoService infoService;
 
@@ -20,7 +20,7 @@ public class InfoController {
         return infoService.sendEmail(response);
     }
 
-    @PostMapping("contact")
+    @PostMapping("contact-us")
     public ResponseEntity<?> contactUs(@RequestBody InfoModel infoModel){
         return infoService.contactUs(infoModel);
     }
